@@ -32,7 +32,7 @@ static int API_wallRight(void){
 // Mock function for the simulator
 static void API_setWall(int r, int c, char dir)   { (void)r; (void)c; (void)dir; }
 
-//coord
+//coordinate
 typedef struct Coord
 {
     int row;
@@ -125,7 +125,7 @@ queue* q;
 Coord currPos;
 
 void calcDist(){
-    //init manhantann distances to grid of -1
+    //init manhattan distances to grid of -1
     for(int i =0; i < maxRows;i ++){
         memset(dist[i], -1, maxCols*sizeof(int));
     }
@@ -145,6 +145,7 @@ void calcDist(){
     queue_push(q, newCoord(centerLeft, centerTop+1));
     queue_push(q, newCoord(centerLeft+1, centerTop+1));
 
+	//breadth first search with queue
     while(q->size != 0){
         Coord curr = queue_pop(q);
         int r = curr.row;
@@ -283,6 +284,7 @@ void checkWalls(int r, int c){
     }
 }
 
+//calculate the best direction to turn to
 int minDistDir(int r, int c){
     int minDist = 999;
     int minDir = 4;
@@ -323,7 +325,7 @@ Action floodFill() {
     //check for walls
     checkWalls(r,c);
 
-    //calcualte manhattan distances
+    //calculate manhattan distances
     calcDist();
 
     //DONE: movement
